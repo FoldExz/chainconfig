@@ -1,0 +1,35 @@
+type Time = int;
+type Log = 
+ record {
+   action: text;
+   timestamp: Time;
+   user: principal;
+ };
+type ConfigStatus = 
+ variant {
+   Approved;
+   RolledBack;
+   Submitted;
+ };
+type Config = 
+ record {
+   author: principal;
+   content: text;
+   id: nat;
+   status: ConfigStatus;
+   timestamp: Time;
+ };
+type ChainConfig = 
+ service {
+   /// Approve a submitted configuration (admin only)
+   approve_config: (nat) -> (bool);
+   /// Query the audit trail logs
+   get_auditTrail: () -> (vec Log) query;
+   /// Query all configurations
+   get_configs: () -> (vec Config) query;
+   /// Rollback a configuration to RolledBack status (admin only)
+   rollback_config: (nat) -> (bool);
+   /// Submit a new configuration; returns the generated config ID
+   submit_config: (text) -> (nat);
+ };
+service : (principal) -> ChainConfig
