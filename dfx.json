@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "chainconfig_backend": {
+      "main": "src/chainconfig_backend/main.mo",
+      "type": "motoko"
+    },
+    "chainconfig_frontend": {
+      "dependencies": [
+        "chainconfig_backend"
+      ],
+      "source": [
+        "src/chainconfig_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "chainconfig_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
