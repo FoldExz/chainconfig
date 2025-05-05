@@ -50,31 +50,31 @@ npm start
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
 
-## 📦 Example Usage (Backend Canister)
+Example Usage (Backend Canister)
 
 
-# ✅ Register a device (admin only)
+✅ Register a device (admin only)
 ```bash
 dfx canister call chainconfig_backend register_device '("Router-A", "192.168.1.1", "Router")'
 ```
+📡 Check all registered devices
 ```bash
-# 📡 Check all registered devices
 dfx canister call chainconfig_backend get_devices
 ```
+📝 Submit a configuration (any user)
 ```bash
-# 📝 Submit a configuration (any user)
 dfx canister call chainconfig_backend submit_config '(0, "echo HelloWorld")'
 ```
+📋 View all configurations
 ```bash
-# 📋 View all configurations
 dfx canister call chainconfig_backend get_configs
 ```
+✅ Approve a configuration (admin only)
 ```bash
-# ✅ Approve a configuration (admin only)
 dfx canister call chainconfig_backend approve_config '(0)'
 ```
+🕵️ View audit logs
 ```bash
-# 🕵️ View audit logs
 dfx canister call chainconfig_backend get_auditTrail
 ```
 
