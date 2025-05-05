@@ -28,7 +28,8 @@ If you want to test your project locally, you can use the following commands:
 dfx start --background
 
 # Deploys your canisters to the replica and generates your candid interface
-dfx deploy
+export ADMIN_PRINCIPAL=$(dfx identity get-principal)
+dfx deploy chainconfig_backend --argument "(principal \"${ADMIN_PRINCIPAL}\")"
 ```
 
 Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
@@ -48,6 +49,34 @@ npm start
 ```
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+
+## 📦 Example Usage (Backend Canister)
+
+
+# ✅ Register a device (admin only)
+```bash
+dfx canister call chainconfig_backend register_device '("Router-A", "192.168.1.1", "Router")'
+```
+```bash
+# 📡 Check all registered devices
+dfx canister call chainconfig_backend get_devices
+```
+```bash
+# 📝 Submit a configuration (any user)
+dfx canister call chainconfig_backend submit_config '(0, "echo HelloWorld")'
+```
+```bash
+# 📋 View all configurations
+dfx canister call chainconfig_backend get_configs
+```
+```bash
+# ✅ Approve a configuration (admin only)
+dfx canister call chainconfig_backend approve_config '(0)'
+```
+```bash
+# 🕵️ View audit logs
+dfx canister call chainconfig_backend get_auditTrail
+```
 
 ### Note on frontend environment variables
 
