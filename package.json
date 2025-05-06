@@ -14,5 +14,10 @@
   "type": "module",
   "workspaces": [
     "src/chainconfig_frontend"
-  ]
+  ],
+  "dependencies": {
+    "@dfinity/agent": "^2.4.1",
+    "identity": "^4.11.4",
+    "ssh2": "^1.16.0"
+  }
 }

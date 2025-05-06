@@ -2,15 +2,14 @@
   "canisters": {
     "chainconfig_backend": {
       "main": "src/chainconfig_backend/main.mo",
-      "type": "motoko"
+      "type": "motoko",
+      "declarations": {
+        "output": "src/declarations/chainconfig_backend"
+      }
     },
     "chainconfig_frontend": {
-      "dependencies": [
-        "chainconfig_backend"
-      ],
-      "source": [
-        "src/chainconfig_frontend/dist"
-      ],
+      "dependencies": ["chainconfig_backend"],
+      "source": ["src/chainconfig_frontend/dist"],
       "type": "assets",
       "workspace": "chainconfig_frontend"
     }
