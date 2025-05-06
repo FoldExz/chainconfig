@@ -127,6 +127,49 @@ actor class ChainConfig(admin: Principal) = this {
   public query func get_auditTrail(): async [Log] {
     auditTrail
   };
+
+  /// Delete a configuration (admin only)
+public shared(msg) func delete_config(id: Nat): async Bool {
+  if (msg.caller != admin) {
+    recordLog(msg.caller, "delete_config_rejected:" # Nat.toText(id));
+    return false;
+  };
+  let initialLen = configs.size();
+  configs := Array.filter<Config>(configs, func(c) = c.id != id);
+  let success = configs.size() < initialLen;
+  if (success) {
+    recordLog(msg.caller, "delete_config:" # Nat.toText(id));
+  };
+  return success;
+};
+
+/// Delete a device (admin only)
+public shared(msg) func delete_device(id: Nat): async Bool {
+  if (msg.caller != admin) {
+    recordLog(msg.caller, "delete_device_rejected:" # Nat.toText(id));
+    return false;
+  };
+  let initialLen = devices.size();
+  devices := Array.filter<Device>(devices, func(d) = d.id != id);
+  let success = devices.size() < initialLen;
+  if (success) {
+    recordLog(msg.caller, "delete_device:" # Nat.toText(id));
+  };
+  return success;
+};
+
+/// Clear audit logs (admin only)
+public shared(msg) func clear_auditTrail(): async Bool {
+  if (msg.caller != admin) {
+    recordLog(msg.caller, "clear_logs_rejected");
+    return false;
+  };
+  auditTrail := [];
+  recordLog(msg.caller, "clear_auditTrail");
+  return true;
+};
+
+
 };
 
 /*
